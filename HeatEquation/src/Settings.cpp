@@ -15,11 +15,11 @@ Settings::Settings(double width, double height, long N, double conductivity, dou
 Settings::~Settings() {
 }
 
-Settings::Settings() : Settings::Settings(1.0f, 1.0f, 10, 1.0f, 0.2, 100) {
+Settings::Settings() : Settings::Settings(1.0f, 1.0f, 100, 1.0f, 0.2, 100) {
 }
 
 double Settings::source(double x, double y, double T, double t) const {
-    return 3 + pow(t, 2.5f);
+    return 1/((0.5-x) * (0.5-x) + (0.5-y) * (0.5-y)) * pow(t, 2.5f);
 }
 
 double Settings::initialDistribution(double x, double y) const {
