@@ -14,6 +14,6 @@ BorderCondition::BorderCondition(double A, double B, double phi) : A(A), B(B), p
 BorderCondition::BorderCondition() : A(0.0f), B(0.0f), phi(0.0f) {
 }
 
-double BorderCondition::borderFunc(double t) {
+double BorderCondition::borderFunc(double t) const {
     return phi;
 }

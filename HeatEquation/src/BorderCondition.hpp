@@ -16,6 +16,6 @@ public:
     const double A;
     const double B;
     const double phi;
-    double borderFunc(double t);
+    double borderFunc(double t) const;
 };
 #endif /* BorderCondition_hpp */

@@ -66,8 +66,8 @@
 		589FD3351D0892EB006F9376 /* HeatEquation */ = {
 			isa = PBXGroup;
 			children = (
-				589FD33D1D08930C006F9376 /* src */,
 				589FD3361D0892EB006F9376 /* main.cpp */,
+				589FD33D1D08930C006F9376 /* src */,
 			);
 			path = HeatEquation;
 			sourceTree = "<group>";
@@ -82,7 +82,7 @@
 				589FD3441D089DA4006F9376 /* BorderCondition.cpp */,
 				589FD3451D089DA4006F9376 /* BorderCondition.hpp */,
 			);
-			name = src;
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

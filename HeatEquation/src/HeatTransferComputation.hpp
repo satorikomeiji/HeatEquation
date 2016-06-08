@@ -18,6 +18,7 @@ class HeatTransferComputation {
 public:
     HeatTransferComputation(const Settings & settings);
     void eval();
+    void outputSolution();
 private:
     const Settings & settings;
     double dx;
