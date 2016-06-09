@@ -43,11 +43,11 @@ int main(int argc, const char * argv[]) {
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
+        computation.draw();
         glClear(GL_COLOR_BUFFER_BIT);
         
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
-        computation.draw();
         /* Poll for and process events */
         glfwPollEvents();
     }

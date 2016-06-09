@@ -11,7 +11,15 @@
 #include <fstream>
 #include <iostream>
 #include "Utils.hpp"
+#include <glm/gtc/type_ptr.hpp>
 //#include <OpenGL/gl.h>
+
+void checkError() {
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        std::cerr << "OpenGL error: " << err << std::endl;
+    }
+}
 
 void Renderer::init(GLFWwindow *window, const grid & solution) {
     glfwGetWindowSize(window, &width, &height);
@@ -37,16 +45,47 @@ void Renderer::init(GLFWwindow *window, const grid & solution) {
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-                        
+    checkError();
     
+    modelUniform = glGetUniformLocation(program, "model");
+    checkError();
+
+    viewUniform = glGetUniformLocation(program, "view");
+    checkError();
+
+    projectionUniform = glGetUniformLocation(program, "projection");
+    checkError();
+
+    
+    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0, -4.0));
+    view = glm::lookAt(glm::vec3(10.0, 10.0, 10.0), glm::vec3(0.0, 0.0, -4.0), glm::vec3(0.0, 1.0, 0.0));
+    projection = glm::perspective(45.0f, 1.0f*width/height, -10.0f, 10.0f);
+    glUseProgram(program);
+    
+    glUniformMatrix4fv(modelUniform, 1, GL_FALSE, glm::value_ptr(model));
+    checkError();
+    glUniformMatrix4fv(viewUniform, 1, GL_FALSE, glm::value_ptr(view));
+    checkError();
+    glUniformMatrix4fv(projectionUniform, 1, GL_FALSE, glm::value_ptr(projection));
+    checkError();
+    glPointSize(10.0f);
+    checkError();
+    glViewport(0,0,width, height);
+    checkError();
+    glm::vec4 result = projection * view * model
+                * glm::vec4(0,0,0,1);
 }
 
 void Renderer::draw() {
     glEnableVertexAttribArray(attribute_vertex);
+    checkError();
     glVertexAttribPointer(attribute_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glDrawArrays(GL_POINTS, 0, N * M);
-    
+    checkError();
+    glDrawArrays(GL_TRIANGLES, 0, N * M);
+    checkError();
 }
+
+
 
 void Renderer::compileShaders() {
     std::string vertexSource = Utils::readFile("shader.vsh");
