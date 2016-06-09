@@ -12,6 +12,10 @@
 		583AEBD31D09D7EC0036BED7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD21D09D7EC0036BED7 /* OpenGL.framework */; };
 		583AEBD51D09D7F90036BED7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD41D09D7F90036BED7 /* Cocoa.framework */; };
 		583AEBD71D09D85D0036BED7 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD61D09D85D0036BED7 /* CoreVideo.framework */; };
+		583AEBDA1D09DFD30036BED7 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 583AEBD81D09DFD30036BED7 /* Renderer.cpp */; };
+		583AEBE21D09F36B0036BED7 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 583AEBE01D09F36B0036BED7 /* Utils.cpp */; };
+		583AEBE61D09F6010036BED7 /* shader.vsh in CopyFiles */ = {isa = PBXBuildFile; fileRef = 583AEBDD1D09EB800036BED7 /* shader.vsh */; };
+		583AEBE71D09F6010036BED7 /* shader.fsh in CopyFiles */ = {isa = PBXBuildFile; fileRef = 583AEBDE1D09EB8A0036BED7 /* shader.fsh */; };
 		589FD3371D0892EB006F9376 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589FD3361D0892EB006F9376 /* main.cpp */; };
 		589FD3401D089366006F9376 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589FD33E1D089366006F9376 /* Settings.cpp */; };
 		589FD3431D089C7F006F9376 /* HeatTransferComputation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589FD3411D089C7F006F9376 /* HeatTransferComputation.cpp */; };
@@ -19,11 +23,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		583AEBE51D09F5F20036BED7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				583AEBE61D09F6010036BED7 /* shader.vsh in CopyFiles */,
+				583AEBE71D09F6010036BED7 /* shader.fsh in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		589FD3311D0892EB006F9376 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 16;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -38,6 +53,13 @@
 		583AEBD21D09D7EC0036BED7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		583AEBD41D09D7F90036BED7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		583AEBD61D09D85D0036BED7 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		583AEBD81D09DFD30036BED7 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		583AEBD91D09DFD30036BED7 /* Renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
+		583AEBDB1D09E1280036BED7 /* CommonTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTypes.h; sourceTree = "<group>"; };
+		583AEBDD1D09EB800036BED7 /* shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vsh; sourceTree = "<group>"; };
+		583AEBDE1D09EB8A0036BED7 /* shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.fsh; sourceTree = "<group>"; };
+		583AEBE01D09F36B0036BED7 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		583AEBE11D09F36B0036BED7 /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		589FD3331D0892EB006F9376 /* HeatEquation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HeatEquation; sourceTree = BUILT_PRODUCTS_DIR; };
 		589FD3361D0892EB006F9376 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		589FD33E1D089366006F9376 /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
@@ -91,6 +113,24 @@
 			path = HeatEquation/lib;
 			sourceTree = "<group>";
 		};
+		583AEBDC1D09EB580036BED7 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				583AEBDD1D09EB800036BED7 /* shader.vsh */,
+				583AEBDE1D09EB8A0036BED7 /* shader.fsh */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		583AEBDF1D09F3420036BED7 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				583AEBE01D09F36B0036BED7 /* Utils.cpp */,
+				583AEBE11D09F36B0036BED7 /* Utils.hpp */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		589FD32A1D0892EB006F9376 = {
 			isa = PBXGroup;
 			children = (
@@ -125,12 +165,17 @@
 		589FD33D1D08930C006F9376 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				583AEBDF1D09F3420036BED7 /* utils */,
+				583AEBDC1D09EB580036BED7 /* shaders */,
 				589FD33E1D089366006F9376 /* Settings.cpp */,
 				589FD33F1D089366006F9376 /* Settings.hpp */,
 				589FD3411D089C7F006F9376 /* HeatTransferComputation.cpp */,
 				589FD3421D089C7F006F9376 /* HeatTransferComputation.hpp */,
 				589FD3441D089DA4006F9376 /* BorderCondition.cpp */,
 				589FD3451D089DA4006F9376 /* BorderCondition.hpp */,
+				583AEBD81D09DFD30036BED7 /* Renderer.cpp */,
+				583AEBD91D09DFD30036BED7 /* Renderer.hpp */,
+				583AEBDB1D09E1280036BED7 /* CommonTypes.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -145,6 +190,7 @@
 				589FD32F1D0892EB006F9376 /* Sources */,
 				589FD3301D0892EB006F9376 /* Frameworks */,
 				589FD3311D0892EB006F9376 /* CopyFiles */,
+				583AEBE51D09F5F20036BED7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -192,6 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				589FD3401D089366006F9376 /* Settings.cpp in Sources */,
+				583AEBE21D09F36B0036BED7 /* Utils.cpp in Sources */,
+				583AEBDA1D09DFD30036BED7 /* Renderer.cpp in Sources */,
 				589FD3461D089DA4006F9376 /* BorderCondition.cpp in Sources */,
 				589FD3371D0892EB006F9376 /* main.cpp in Sources */,
 				589FD3431D089C7F006F9376 /* HeatTransferComputation.cpp in Sources */,

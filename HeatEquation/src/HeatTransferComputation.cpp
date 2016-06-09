@@ -10,7 +10,7 @@
 #include <string>
 #include <cstdio>
 
-HeatTransferComputation::HeatTransferComputation(const Settings & settings) : settings(settings) {
+HeatTransferComputation::HeatTransferComputation(const Settings & settings) : settings(settings),renderer() {
     dx = settings.width / settings.N;
     dy = settings.heigh / settings.N;
     solution = MATRIX(settings.N, settings.timeIterations + 1);
@@ -18,7 +18,7 @@ HeatTransferComputation::HeatTransferComputation(const Settings & settings) : se
         for (int j = 0; j < settings.N; j++) {
             solution[i][j][0] = settings.initialDistribution(i * dx, j * dy);
         }
-    }
+    };
 }
 
 
@@ -64,4 +64,12 @@ void HeatTransferComputation::eval() {
             solution[i][settings.N-1][st] = (A2 * solution[i][settings.N-2][st-1] + dx * settings.bottomBorderCondition.borderFunc(settings.dt * st)) / (A2 + dx * B2);
         }
     }
+}
+
+void HeatTransferComputation::prepareForDrawing(GLFWwindow *window) {
+    renderer.init(window, solution);
+}
+
+void HeatTransferComputation::draw() {
+    renderer.draw();
 }
