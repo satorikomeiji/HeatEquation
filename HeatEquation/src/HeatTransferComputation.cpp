@@ -41,8 +41,8 @@ void HeatTransferComputation::eval() {
         for (int i = 1; i < settings.N-1; i++) {
             for (int j = 1; j < settings.N-1;j++) {
                 solution[i][j][st] = solution[i][j][st-1] + settings.dt *
-                (solution[i][j-1][st-1] - 2 * solution[i][j][st-1] + solution[i][j+1][st-1]) / (dy * dy)
-                + settings.dt
+                settings.conductivity * (solution[i][j-1][st-1] - 2 * solution[i][j][st-1] + solution[i][j+1][st-1]) / (dy * dy)
+                + settings.dt * settings.conductivity
                 * (solution[i-1][j][st-1] - 2 * solution[i][j][st-1] + solution[i+1][j][st-1]) / (dx * dx)
                 + settings.dt * settings.source(i * dx, j * dy, solution[i][j][st-1], (st-1) * settings.dt);
             }

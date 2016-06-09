@@ -13,9 +13,9 @@ class BorderCondition {
 public:
     BorderCondition(double A, double B, double phi);
     BorderCondition();
-    const double A;
-    const double B;
-    const double phi;
+    double A;
+    double B;
+    double phi;
     double borderFunc(double t) const;
 };
 #endif /* BorderCondition_hpp */
