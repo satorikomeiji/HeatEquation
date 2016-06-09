@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		583AEBCF1D09D69B0036BED7 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBCE1D09D69B0036BED7 /* libglfw3.a */; };
+		583AEBD11D09D7E60036BED7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD01D09D7E60036BED7 /* IOKit.framework */; };
+		583AEBD31D09D7EC0036BED7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD21D09D7EC0036BED7 /* OpenGL.framework */; };
+		583AEBD51D09D7F90036BED7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD41D09D7F90036BED7 /* Cocoa.framework */; };
+		583AEBD71D09D85D0036BED7 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD61D09D85D0036BED7 /* CoreVideo.framework */; };
 		589FD3371D0892EB006F9376 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589FD3361D0892EB006F9376 /* main.cpp */; };
 		589FD3401D089366006F9376 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589FD33E1D089366006F9376 /* Settings.cpp */; };
 		589FD3431D089C7F006F9376 /* HeatTransferComputation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589FD3411D089C7F006F9376 /* HeatTransferComputation.cpp */; };
@@ -26,6 +31,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		583AEBCB1D09D69B0036BED7 /* glfw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3.h; sourceTree = "<group>"; };
+		583AEBCC1D09D69B0036BED7 /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
+		583AEBCE1D09D69B0036BED7 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
+		583AEBD01D09D7E60036BED7 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		583AEBD21D09D7EC0036BED7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		583AEBD41D09D7F90036BED7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		583AEBD61D09D85D0036BED7 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		589FD3331D0892EB006F9376 /* HeatEquation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HeatEquation; sourceTree = BUILT_PRODUCTS_DIR; };
 		589FD3361D0892EB006F9376 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		589FD33E1D089366006F9376 /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
@@ -41,15 +53,53 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583AEBD71D09D85D0036BED7 /* CoreVideo.framework in Frameworks */,
+				583AEBD51D09D7F90036BED7 /* Cocoa.framework in Frameworks */,
+				583AEBD31D09D7EC0036BED7 /* OpenGL.framework in Frameworks */,
+				583AEBD11D09D7E60036BED7 /* IOKit.framework in Frameworks */,
+				583AEBCF1D09D69B0036BED7 /* libglfw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		583AEBC91D09D69B0036BED7 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				583AEBCA1D09D69B0036BED7 /* GLFW */,
+			);
+			name = include;
+			path = HeatEquation/include;
+			sourceTree = "<group>";
+		};
+		583AEBCA1D09D69B0036BED7 /* GLFW */ = {
+			isa = PBXGroup;
+			children = (
+				583AEBCB1D09D69B0036BED7 /* glfw3.h */,
+				583AEBCC1D09D69B0036BED7 /* glfw3native.h */,
+			);
+			path = GLFW;
+			sourceTree = "<group>";
+		};
+		583AEBCD1D09D69B0036BED7 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				583AEBCE1D09D69B0036BED7 /* libglfw3.a */,
+			);
+			name = lib;
+			path = HeatEquation/lib;
+			sourceTree = "<group>";
+		};
 		589FD32A1D0892EB006F9376 = {
 			isa = PBXGroup;
 			children = (
+				583AEBD61D09D85D0036BED7 /* CoreVideo.framework */,
+				583AEBD41D09D7F90036BED7 /* Cocoa.framework */,
+				583AEBD21D09D7EC0036BED7 /* OpenGL.framework */,
+				583AEBD01D09D7E60036BED7 /* IOKit.framework */,
+				583AEBC91D09D69B0036BED7 /* include */,
+				583AEBCD1D09D69B0036BED7 /* lib */,
 				589FD3351D0892EB006F9376 /* HeatEquation */,
 				589FD3341D0892EB006F9376 /* Products */,
 			);
@@ -235,6 +285,15 @@
 		589FD33B1D0892EB006F9376 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(PROJECT_DIR)/HeatEquation/include",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HeatEquation/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -242,6 +301,12 @@
 		589FD33C1D0892EB006F9376 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HeatEquation/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -265,6 +330,7 @@
 				589FD33C1D0892EB006F9376 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
