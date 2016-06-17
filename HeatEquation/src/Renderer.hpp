@@ -15,12 +15,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 class Renderer {
 public:
-    void init(GLFWwindow * window,const grid & solution);
+    void init(GLFWwindow * window,const grid & solution, double dx, double dy);
     void draw();
 private:
     void compileShaders();
     int width;
     int height;
+    GLuint vao;
     GLuint vbo;
     GLuint ibo;
     GLuint program;
@@ -35,5 +36,9 @@ private:
     GLuint modelUniform;
     GLuint viewUniform;
     GLuint projectionUniform;
+    double dx;
+    double dy;
+    GLuint vertexbuffer;
+    GLushort * indices;
 };
 #endif /* Renderer_hpp */

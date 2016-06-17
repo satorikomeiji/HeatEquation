@@ -12,7 +12,7 @@
 #include <iostream>
 #include "Utils.hpp"
 #include <glm/gtc/type_ptr.hpp>
-//#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 void checkError() {
     GLenum err;
@@ -21,16 +21,25 @@ void checkError() {
     }
 }
 
-void Renderer::init(GLFWwindow *window, const grid & solution) {
+void Renderer::init(GLFWwindow *window, const grid & solution, double dx, double dy) {
+    this->dx = dx;
+    this->dy = dy;
     glfwGetWindowSize(window, &width, &height);
+    checkError();
+    glGenVertexArrays(1, &vao);
+    checkError();
+    glDisable(GL_CULL_FACE);
+    glBindVertexArray(vao);
+    checkError();
     glGenBuffers(1, &vbo);
+    checkError();
     compileShaders();
     const char * attribute_name = "vertex";
     attribute_vertex = glGetAttribLocation(program, attribute_name);
     if (attribute_vertex == -1) {
         std::cerr << "Could not bind attribute " << attribute_name << std::endl;
     }
-    vertices = new GLfloat [solution.size() * solution[0].size() * solution[0][0].size()];
+    vertices = new GLfloat [3 * solution.size() * solution[0].size() * solution[0][0].size()];
     N = solution.size();
     M = solution[0].size();
     T = solution[0][0].size();
@@ -38,12 +47,15 @@ void Renderer::init(GLFWwindow *window, const grid & solution) {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                vertices[k * N * M + i * M + j] = solution[i][j][k];
+                vertices[3 * (k * N * M + i * M + j) + 0] = (GLfloat)(i*dx);
+                vertices[3 * (k * N * M + i * M + j) + 1] = (GLfloat)(j*dy);
+                vertices[3 * (k * N * M + i * M + j) + 2] = (GLfloat)solution[i][j][k];
             }
         }
     }
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    checkError();
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     checkError();
     
@@ -57,9 +69,12 @@ void Renderer::init(GLFWwindow *window, const grid & solution) {
     checkError();
 
     
-    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0, -4.0));
-    view = glm::lookAt(glm::vec3(10.0, 10.0, 10.0), glm::vec3(0.0, 0.0, -4.0), glm::vec3(0.0, 1.0, 0.0));
-    projection = glm::perspective(45.0f, 1.0f*width/height, -10.0f, 10.0f);
+    model = //glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0, -4.0));
+    glm::rotate(glm::mat4(1.0f), (GLfloat)M_PI, glm::vec3(0.0f,0.0f,1.0f)) * glm::translate(glm::mat4(1.0f), glm::vec3(0.5f,0.5f,0.0f));
+    view = //glm::lookAt(glm::vec3(10.0, 10.0, 10.0), glm::vec3(0.0, 0.0, -4.0), glm::vec3(0.0, 1.0, 0.0));
+    glm::mat4(1.0f);
+    projection = //glm::perspective(70.0f, 1.0f*width/height, -3.0f, 10.0f);
+    glm::mat4(1.0f);
     glUseProgram(program);
     
     glUniformMatrix4fv(modelUniform, 1, GL_FALSE, glm::value_ptr(model));
@@ -70,19 +85,70 @@ void Renderer::init(GLFWwindow *window, const grid & solution) {
     checkError();
     glPointSize(10.0f);
     checkError();
-    glViewport(0,0,width, height);
+    //glViewport(0,0,width, height);
     checkError();
     glm::vec4 result = projection * view * model
                 * glm::vec4(0,0,0,1);
+    glm::vec4 result1 = projection * view * model
+    * glm::vec4(0,1,0,1);
+//    static const GLfloat g_vertex_buffer_data[] = {
+//        -1.0f, -1.0f, 0.0f,
+//        1.0f, -1.0f, 0.0f,
+//        0.0f,  1.0f, 0.0f,
+//    };
+//    // This will identify our vertex buffer
+//    // Generate 1 buffer, put the resulting identifier in vertexbuffer
+//    glGenBuffers(1, &vertexbuffer);
+//    // The following commands will talk about our 'vertexbuffer' buffer
+//    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+//    // Give our vertices to OpenGL.
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    indices = new GLushort[N*M*3];
+    int k = 0;
+    for(int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            indices[k] = i * M + j;
+            indices[k+1] = (i+1)*M + j;
+            indices[k+2] = i * M + j + 1;
+            k+=3;
+        }
+    }
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    checkError();
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof indices, indices, GL_STATIC_DRAW);
+    checkError();
+    
 }
 
 void Renderer::draw() {
     glEnableVertexAttribArray(attribute_vertex);
     checkError();
-    glVertexAttribPointer(attribute_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(attribute_vertex, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     checkError();
-    glDrawArrays(GL_TRIANGLES, 0, N * M);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     checkError();
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, (void*)0);
+    //glDrawArrays(GL_TRIANGLES, 0, 100);
+    checkError();
+//    glEnableVertexAttribArray(0);
+//    checkError();
+//    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+//    checkError();
+//    glVertexAttribPointer(
+//                          0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+//                          3,                  // size
+//                          GL_FLOAT,           // type
+//                          GL_FALSE,           // normalized?
+//                          0,                  // stride
+//                          (void*)0            // array buffer offset
+//                          );
+//    checkError();
+//    // Draw the triangle !
+//    glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+//    checkError();
+//    glDisableVertexAttribArray(0);
 }
 
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5837E0291D13D3D700ECA623 /* libiomp5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5837E0281D13D3D700ECA623 /* libiomp5.dylib */; };
 		583AEBCF1D09D69B0036BED7 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBCE1D09D69B0036BED7 /* libglfw3.a */; };
 		583AEBD11D09D7E60036BED7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD01D09D7E60036BED7 /* IOKit.framework */; };
 		583AEBD31D09D7EC0036BED7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583AEBD21D09D7EC0036BED7 /* OpenGL.framework */; };
@@ -46,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5837E0281D13D3D700ECA623 /* libiomp5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiomp5.dylib; path = ../../../../usr/local/Cellar/libiomp/20150701/lib/libiomp5.dylib; sourceTree = "<group>"; };
 		583AEBCB1D09D69B0036BED7 /* glfw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3.h; sourceTree = "<group>"; };
 		583AEBCC1D09D69B0036BED7 /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
 		583AEBCE1D09D69B0036BED7 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5837E0291D13D3D700ECA623 /* libiomp5.dylib in Frameworks */,
 				583AEBD71D09D85D0036BED7 /* CoreVideo.framework in Frameworks */,
 				583AEBD51D09D7F90036BED7 /* Cocoa.framework in Frameworks */,
 				583AEBD31D09D7EC0036BED7 /* OpenGL.framework in Frameworks */,
@@ -134,6 +137,7 @@
 		589FD32A1D0892EB006F9376 = {
 			isa = PBXGroup;
 			children = (
+				5837E0281D13D3D700ECA623 /* libiomp5.dylib */,
 				583AEBD61D09D85D0036BED7 /* CoreVideo.framework */,
 				583AEBD41D09D7F90036BED7 /* Cocoa.framework */,
 				583AEBD21D09D7EC0036BED7 /* OpenGL.framework */,
@@ -280,6 +284,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -318,6 +323,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -334,6 +340,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "/usr/local/bin/clang-omp";
+				CLANG_ENABLE_MODULES = NO;
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(PROJECT_DIR)/HeatEquation/include",
 					"$(inherited)",
@@ -342,7 +350,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HeatEquation/lib",
+					/usr/local/lib,
+					/usr/local/Cellar/libiomp/20150701/lib,
 				);
+				OTHER_CFLAGS = "-fopenmp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -351,11 +362,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "/usr/local/bin/clang-omp";
+				CLANG_ENABLE_MODULES = NO;
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HeatEquation/lib",
+					/usr/local/lib,
+					/usr/local/Cellar/libiomp/20150701/lib,
 				);
+				OTHER_CFLAGS = "-fopenmp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

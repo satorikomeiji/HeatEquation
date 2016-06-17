@@ -20,6 +20,7 @@ class HeatTransferComputation {
 public:
     HeatTransferComputation(const Settings & settings);
     void eval();
+    void parallelEval();
     void outputSolution();
     void prepareForDrawing(GLFWwindow * window);
     void draw();
