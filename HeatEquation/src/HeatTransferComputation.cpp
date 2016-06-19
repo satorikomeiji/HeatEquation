@@ -10,6 +10,7 @@
 #include <string>
 #include <cstdio>
 #include <libiomp/omp.h>
+#include <iostream>
 
 HeatTransferComputation::HeatTransferComputation(const Settings & settings) : settings(settings),renderer() {
     dx = settings.width / settings.N;
@@ -73,21 +74,32 @@ void HeatTransferComputation::parallelEval() {
     omp_set_num_threads(NUMBER_OF_THREADS); // установить число потоков
     
     for (int st = 1; st <= settings.timeIterations; st++) {
-        int mId = 0;
+        #pragma omp parallel
+        {
         int i = 0;
         int j = 0;
-        #pragma omp parallel for shared(NUMBER_OF_THREADS) private(mId, i, j)
-        for (mId = 0; mId < NUMBER_OF_THREADS; mId++) {
+        #pragma omp for nowait
+        for (int mId = 0; mId < NUMBER_OF_THREADS; mId++) {
+         #pragma omp critical
+            {
+                std::cout << "Hello World from thread " << omp_get_thread_num() << "and mId " << mId << '\n';
+            }
         for (i = mId*((settings.N+1)/NUMBER_OF_THREADS); i <
              mId*((settings.N+1)/NUMBER_OF_THREADS) + (settings.N+1)/NUMBER_OF_THREADS; i++) {
             if (i > 0 && i < settings.N-1)
             for (j = 1; j < settings.N-1;j++) {
+              #pragma omp critical
+                {
+                    std::cout << "i = " << i << " j = " << j<< " thread = " << omp_get_thread_num() << "and mId " << mId << '\n';
+                }
+
                 solution[i][j][st] = solution[i][j][st-1] + settings.dt *
                 settings.conductivity * (solution[i][j-1][st-1] - 2 * solution[i][j][st-1] + solution[i][j+1][st-1]) / (dy * dy)
                 + settings.dt * settings.conductivity
                 * (solution[i-1][j][st-1] - 2 * solution[i][j][st-1] + solution[i+1][j][st-1]) / (dx * dx)
                 + settings.dt * settings.source(i * dx, j * dy, solution[i][j][st-1], (st-1) * settings.dt);
             }
+        }
         }
         }
         for (int j = 0; j < settings.N; j++) {

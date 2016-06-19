@@ -26,8 +26,8 @@ int main(int argc, const char * argv[]) {
         glfwTerminate();
         return -1;
     }
-    
-    Settings settings(1.0, 1.0, 999, 0.1, 0.0001, 100);
+
+    Settings settings(1.0, 1.0, 5999, 0.1, 0.0001, 1);
     settings.leftBorderCondition.B = 1.0f;
     settings.leftBorderCondition.phi = 0.0f;
     settings.rightBorderCondition.B = 1.0f;
